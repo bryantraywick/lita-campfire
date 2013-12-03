@@ -8,6 +8,7 @@ module Lita
           @apikey    = opts.fetch(:apikey)
           @rooms     = opts.fetch(:rooms)
           @debug     = opts.fetch(:debug) { false }
+          @timeout   = opts.fetch(:timeout) { 6 }
         end
 
         def connect
@@ -20,7 +21,7 @@ module Lita
             room.join
             callback = Callback.new(@robot, room)
             callback.register_users
-            callback.listen
+            callback.listen(timeout: @timeout)
           end
         end
 
